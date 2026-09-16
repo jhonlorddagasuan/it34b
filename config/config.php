@@ -1,30 +1,24 @@
 <?php
 session_start();
-require_once 'includes/activity-logger.php';
 
-//defiine('','');
-define('BASE_URL','http://localhost/Activity-Logger/');
+require_once(__DIR__ . '/../includes/activity-logger.php');
+define('BASE_URL', 'http://localhost/it34b');
 
-define('DB_HOST','localhost');
-define('DB_NAME','it34b_lab_db');
-define('DB_USER','root');
-define('DB_PASS','');
-
-$user_id = "root" ?? null;
-$email = "root@example" ?? null;
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'it34_jl');
+define('DB_USER', 'root');
+define('DB_PASS', '');
 
 try{
-    $pdo = new PDO(
-        "mysql:host=".DB_HOST.";dbname=".DB_NAME,
-        DB_USER,
-        DB_PASS,
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
-   // echo ("Connected successfully");
-   // logActivity($pdo,$user_id,$email,'connection_db','success');
+$pdo = new PDO(
+    "mysql:host=" .DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    ]);
 
 } catch (PDOException $e) {
-    die("connection failed: " . $e->getMessage());
-
+    
+    die("Connection failed: " . $e->getMessage());
 }
+
+
 ?>
