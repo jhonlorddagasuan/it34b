@@ -1,30 +1,77 @@
 <?php
-
 require_once 'config/config.php';
-require_once 'include/activity-logger.php';
+require_once 'config/functions.php';
+
+if(isset($_SESSION['user_id'])){
+    header('Location: ' . BASE_URL . '/app/' . $_SESSION['user_role'] . '/index.php');
+    exit;
+}
+
+$error='';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $action = trim($_POST['action'] ?? '');
+    $login = trim($_POST['login'] ?? '');
+    $password = trim($_POST['password']) ?? '';
 
-    $user_id = $_SESSION['user_id'] ?? null;
+    if(loginUser($pdo,$login, $password)){
+        header('Location: ' . BASE_URL . '/app/' . $_SESSION['user_role'] . '/index.php');
+        exit;
 
-}
+
+        $error = 'Invalid login credentials';
+
+        if ($login==='' || $password ===''){
+
+            // Log incomplete login attempt
+            logActivity($pdo,null,$login,'login','failed');
+
+        } else {
+
+            if(loginUser($pdo,$login,$password)){
+                // Log complete login attempt
+
+                logActivity(
+                    $pdo,$_SESSION['user_id'],
+                    $_SESSION['user_email'],
+                    'login',
+                    'success',
+                );
+            }
+        }
+
+        }
+    }
+
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="witdth=device-witdth, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-<form> method_"POST">
-    <buttom
-    type='submit'
-    name='action'
 
-    >Sample</buttom>
-</form>
+<body>
+
+
+    <form method="POST">
+        <label>Username or Email</label>
+        <input type="text"
+            name="login"
+            required>
+        <br>
+        <br>
+        <label>Password</label>
+        <input type="password"
+            name="password"
+            required>
+
+        <br>
+        <button type="submit">Sign In</button>
+
+    </form>
 </body>
+
 </html>
