@@ -3,8 +3,10 @@ session_start();
 
 require_once(__DIR__ . '/../functions/activity.php');
 require_once(__DIR__ . '/../functions/auth.php');
-require_once(__DIR__ . '/..//functions./');
-define('BASE_URL', 'http://localhost/it34b');
+require_once(__DIR__ . '/../functions/redirect.php');
+
+
+define('BASE_URL', 'http://localhost/IT34B');
 
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'it34_jl');
