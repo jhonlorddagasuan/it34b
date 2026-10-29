@@ -4,12 +4,12 @@ session_start();
 require_once(__DIR__ . '/../functions/activity.php');
 require_once(__DIR__ . '/../functions/auth.php');
 require_once(__DIR__ . '/../functions/redirect.php');
+require_once(__DIR__ . '/../functions/csrf.php');
 
-
-define('BASE_URL', 'http://localhost/IT34B');
+define('BASE_URL', 'http://localhost/it34b');
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'it34_jl');
+define('DB_NAME', 'libr_it34b');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
